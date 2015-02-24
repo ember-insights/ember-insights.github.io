@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <div id="example-component">
+    <link rel="import" href="example-component/app.html">
+  </div>
+  <script>
+    var link = document.querySelector('#example-component link');
+
+    // Clone the <template> in the import.
+    var template = link.import.querySelector('template');
+    var clone = document.importNode(template.content, true);
+
+    document.querySelector('#example-component').appendChild(clone);
+  </script>
+</body>
+</html>
