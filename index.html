@@ -14,6 +14,7 @@
   <div role="main" id="container">
     <nav id="main-navigation">
       <ul class="clearfix">
+        <li><a href="#overview">Introduction</a></li>
         <li><a href="#license">License</a></li>
         <li><a href="https://github.com/ember-insights/ember-insights/issues" target="_blank">Issues</a></li>
       </ul>
@@ -30,6 +31,29 @@
       <div id="actions-github">
         <iframe src="https://ghbtns.com/github-btn.html?user=ember-insights&repo=ember-insights&type=fork&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="120px" height="30px"></iframe>
         <iframe src="https://ghbtns.com/github-btn.html?user=ember-insights&repo=ember-insights&type=star&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
+      </div>
+    </section>
+
+    <section class="section-box" id="overview">
+      <h3 class="section-title">Introduction</h3>
+      <div class="section-content">
+        <p>Ember-Insights.js is a Ember based framework that lets you gather user-centered metrics and analyze it through analytic appliances.</p>
+        <p>The main idea behind is Single Responsibility Principle, and that responsibility for tracking user's metrics should be entirely encapsulated by
+        the different layer from application business logic. The way we do the Ember-Insights.js makes possible to keep business logic and developers entirely encapsulated
+        from tracking user-centered behavior and their analytics logic.
+        </p>
+        <p><strong>Key features:</strong>
+        <ul>
+          <li>Ability to track the whole application usage by adding a couple of configuration lines;</li>
+          <li>Ability to specify and track particular <code>actions</code> and <code>transitions</code>;</li>
+          <li>Ability to specify tracking groups and handle them as you wish (all you need to specify <code>handler</code> middleware function);</li>
+          <li>Ability to go with <code>GoogleTracker</code> or plug your own (all you need to extend <code>AbstractTracker</code> interface);</li>
+          <li>Ability to submit user's metrics into multiple analytic appliances on the same time;</li>
+          <li>Designed as an Ember-CLI addon (also available as AMD package);</li>
+        </ul>
+        </p>
+
+        <p>This project was created at <a href="https://github.com/roundscope" target="_blank">Roundscope Ukraine Labs</a> as a result of our domain experience.</p>
       </div>
     </section>
 
@@ -58,7 +82,7 @@
     <section class="section-box" id="license">
       <h3 class="section-title">License</h3>
       <div class="section-content">
-        <p>Ember Insights is released under the <a href="https://github.com/ember-insights/ember-insights/blob/master/LICENSE.md" target="_blank">MIT license</a>.</p>
+        <p>Ember-Insights.js is released under the <a href="https://github.com/ember-insights/ember-insights/blob/master/LICENSE.md" target="_blank">MIT license</a>.</p>
       </div>
     </section>
     <small>Copyright 2015 - Roundscope Ukraine Labs</small>
