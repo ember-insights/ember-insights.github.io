@@ -16,6 +16,7 @@
       <ul class="clearfix">
         <li><a href="#overview">Introduction</a></li>
         <li><a href="https://github.com/ember-insights/ember-insights#getting-started" target="_blank">Getting Started</a></li>
+        <li><a href="#example-component">Example Component</a></li>
         <li><a href="#license">License</a></li>
         <li><a href="https://github.com/ember-insights/ember-insights/issues" target="_blank">Issues</a></li>
       </ul>
@@ -55,6 +56,26 @@
         </p>
 
         <p>This project was created at <a href="https://github.com/roundscope" target="_blank">Roundscope Ukraine Labs</a> as a result of our domain experience.</p>
+      </div>
+    </section>
+
+    <section class="section-box" id="example-component">
+      <h3 class="section-title">Example: Task Success Application</h3>
+      <div class="section-content">
+        <h5>Application (<i>Your browser may not support the application functionality</i>)</h5>
+        <link rel="import" href="example-component/app.html">
+        <div id="example-component-host"></div>
+        <script>
+          var link      = document.querySelector('link[href="example-component/app.html"]');
+          var template  = link.import.querySelector('template');
+          var clone     = document.importNode(template.content, true);
+
+          var host      = document.querySelector('#example-component-host');
+          host.appendChild(clone);
+        </script>
+
+        <h5>Source: <code>app.js</code></h5>
+        <script src="https://gist.github.com/Zatvobor/e5b8266f8a5bedeb50d3.js?file=app.js"></script>
       </div>
     </section>
 

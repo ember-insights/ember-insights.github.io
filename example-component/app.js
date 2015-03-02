@@ -34,7 +34,7 @@ Ember.Application.initializer({
   }
 });
 
-App = Ember.Application.create({});
+App = Ember.Application.create({rootElement: '#example-component-container'});
 
 App.Router.map(function() {
   this.resource('index',     { path: '/' });
