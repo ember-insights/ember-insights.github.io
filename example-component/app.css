@@ -1,0 +1,16 @@
+#example-component-wrapper {
+  border: 4px dashed orange;
+  border-radius: 10px;
+}
+
+#example-component-container,
+#example-component-output {
+  background-color: white;
+  border: 2px solid grey;
+  border-radius: 5px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  height: 650px;
+  overflow: scroll;
+  padding: 10px;
+  margin: 10px;
+}

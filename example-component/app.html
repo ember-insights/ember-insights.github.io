@@ -1,13 +1,13 @@
 <template>
   <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="example-component/app.css" rel="stylesheet">
+
   <script type="text/x-handlebars">
-    <div class="container-fluid">
-      <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs">
       {{#link-to 'index'     tagName='li' disabled='true'}}<a>Task</a>{{/link-to}}
       {{#link-to 'execution' tagName='li' disabled='true'}}<a>Execution</a>{{/link-to}}
       {{#link-to 'result'    tagName='li' disabled='true'}}<a>Result</a>{{/link-to}}
     </ul>
-    </div>
     <div class="tab-content">
       {{outlet}}
     </div>
@@ -129,7 +129,19 @@
     </div>
   </script>
 
-  <div id="example-component-container"></div>
+  <div id="example-component-wrapper">
+    <div class="container-fluid">
+      <div class="col-xs-6">
+        <h4>application</h4>
+        <div id="example-component-container"></div>
+      </div>
+      <div class="col-xs-6">
+        <h4>output</h4>
+        <div id="example-component-output"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="example-component/app.js"></script>
 </template>
 
