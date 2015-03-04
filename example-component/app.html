@@ -1,14 +1,52 @@
-<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-
 <template>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="example-component/app.css" rel="stylesheet">
+
+  <script>
+    var AbstractTracker = require('trackers/abstract-tracker')['default'];
+    var customOutputTrackerFactory = function() {
+      var numFadingIn = 0;
+      var logger = function(label, params) {
+        var message = 'tracker.%@(%@)'.fmt(label, JSON.stringify(params));
+        var $new = $('<div style="display:none;"> <code>' + message + '</code> <hr> </div>');
+        $('#example-component-output').prepend($new);
+        numFadingIn++;
+        setTimeout(function(){
+          $new.show('slow', function() { numFadingIn--; });
+        }, (numFadingIn-1) * 500);
+      };
+
+      var Tracker = AbstractTracker.extend({
+        getTracker: function() {
+          return logger;
+        },
+        set: function(key, value) {
+          logger('set', [key, value]);
+        },
+        send: function(fieldNameObj) {
+          logger('send', [fieldNameObj]);
+        },
+        sendEvent: function(category, action, label, value) {
+          logger('sendEvent', [category, action, label, value]);
+        },
+        trackPageView: function(path, fieldNameObj) {
+          logger('trackPageView', ['pageview', path, fieldNameObj]);
+        },
+        applyAppFields: function() {
+          logger('applyAppFields');
+        }
+      });
+      return new Tracker();
+    };
+
+  </script>
+
   <script type="text/x-handlebars">
-    <div class="container-fluid">
-      <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs">
       {{#link-to 'index'     tagName='li' disabled='true'}}<a>Task</a>{{/link-to}}
       {{#link-to 'execution' tagName='li' disabled='true'}}<a>Execution</a>{{/link-to}}
       {{#link-to 'result'    tagName='li' disabled='true'}}<a>Result</a>{{/link-to}}
     </ul>
-    </div>
     <div class="tab-content">
       {{outlet}}
     </div>
@@ -129,6 +167,22 @@
       </button>
     </div>
   </script>
+
+  <div id="example-component-wrapper">
+    <div class="container-fluid">
+      <div class="col-xs-6">
+        <h4>application</h4>
+        <div id="example-component-container"></div>
+      </div>
+      <div class="col-xs-6">
+        <h4>output</h4>
+        <div id="example-component-output"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="example-component/initializer.js"></script>
+  <script src="example-component/app.js"></script>
 </template>
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -136,5 +190,4 @@
 <script src="bower_components/ember/ember.min.js"></script>
 
 <script src="bower_components/almond/almond.js"></script>
-<script src="bower_components/ember-insights/dist/ember-insights.amd.js"></script>
-<script src="app.js"></script>
+<script src="bower_components/ember-insights/ember-insights.amd.min.js"></script>

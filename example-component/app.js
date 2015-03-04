@@ -1,46 +1,16 @@
-var Insights = require('ember-insights')['default'];
-
-Ember.Application.initializer({
-  name: 'Insights',
-  initialize: function (container, application) {
-    Insights.configure('demo', {
-      trackerFactory: Insights.ConsoleTracker.factory
-    }).track({
-      insights: {
-        TRANSITIONS: ['index', 'execution'], ALL_ACTIONS: true
-      }
-    }).track({
-      insights: {
-        TRANSITIONS: ['result']
-      },
-      handler: function(type, context, tracker) {
-        var model = context.route.get('controller.model');
-        var label, value;
-
-        if (model.get('isValid')) {
-          label = 'success';
-          value = { first_attempt: model.get('firstAttempt'), second_attempt: model.get('secondAttempt') };
-        }
-        else {
-          label = 'failed';
-          value = { errors: model.errors() };
-        }
-
-        tracker.sendEvent('result_page', 'entered', label, value);
-      }
-    });
-
-    Insights.start('demo');
-  }
-});
-
-App = Ember.Application.create({});
+// The Example App is abstract implementation as a show case of getting the 'Task Success' metric.
+// The Task Success: this includes traditional behavioral metrics of user experience,
+// such as efficiency (e.g. time to complete a task), effectiveness (e.g. percent of tasks completed), and error rate.
+// This category is most applicable to areas of your product that are very task-focused, such as search or an upload flow.
+App = Ember.Application.create({rootElement: '#example-component-container'});
 
 App.Router.map(function() {
   this.resource('index',     { path: '/' });
   this.resource('execution', { path: '/execution' });
   this.resource('result',    { path: '/result' });
 });
+
+App.Router.reopen({ location: 'none' });
 
 App.Task = Ember.Object.extend({
   validateInput:    Ember.computed.equal('taskID', 'Mnemonics'),
