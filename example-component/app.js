@@ -1,46 +1,9 @@
-var Insights = require('ember-insights')['default'];
-var AbstractTracker = require('trackers/abstract-tracker')['default'];
-
-// factory to create custom tracker that appends output to DOM element
-customOutputTrackerFactory = function() {
-  var numFadingIn = 0;
-  var logger = function(label, params) {
-    var message = '[ToDOMTracker].%@(%@)'.fmt(label, JSON.stringify(params));
-    var $new = $('<div style="display:none;"> <p>' + message + '</p> <hr> </div>');
-    $('#example-component-output').prepend($new);
-    numFadingIn++;
-    setTimeout(function(){
-      $new.show('slow', function() { numFadingIn--; });
-    }, (numFadingIn-1) * 500);
-  };
-
-  var Tracker = AbstractTracker.extend({
-    getTracker: function() {
-      return logger;
-    },
-    set: function(key, value) {
-      logger('set', [key, value]);
-    },
-    send: function(fieldNameObj) {
-      logger('send', [fieldNameObj]);
-    },
-    sendEvent: function(category, action, label, value) {
-      logger('sendEvent', [category, action, label, value]);
-    },
-    trackPageView: function(path, fieldNameObj) {
-      logger('trackPageView', ['pageview', path, fieldNameObj]);
-    },
-    applyAppFields: function() {
-      logger('applyAppFields');
-    }
-  });
-  return new Tracker();
-};
+var EmberInsights = require('ember-insights')['default'];
 
 Ember.Application.initializer({
-  name: 'Insights',
+  name: 'Ember-Insights.js',
   initialize: function (container, application) {
-    Insights.configure('demo', {
+    EmberInsights.configure('demo', {
       trackerFactory: customOutputTrackerFactory
     }).track({
       insights: {
@@ -67,7 +30,7 @@ Ember.Application.initializer({
       }
     });
 
-    Insights.start('demo');
+    EmberInsights.start('demo');
   }
 });
 

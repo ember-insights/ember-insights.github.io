@@ -1,4 +1,43 @@
 <template>
+  <script>
+    var AbstractTracker = require('trackers/abstract-tracker')['default'];
+    var customOutputTrackerFactory = function() {
+      var numFadingIn = 0;
+      var logger = function(label, params) {
+        var message = 'tracker.%@(%@)'.fmt(label, JSON.stringify(params));
+        var $new = $('<div style="display:none;"> <code>' + message + '</code> <hr> </div>');
+        $('#example-component-output').prepend($new);
+        numFadingIn++;
+        setTimeout(function(){
+          $new.show('slow', function() { numFadingIn--; });
+        }, (numFadingIn-1) * 500);
+      };
+
+      var Tracker = AbstractTracker.extend({
+        getTracker: function() {
+          return logger;
+        },
+        set: function(key, value) {
+          logger('set', [key, value]);
+        },
+        send: function(fieldNameObj) {
+          logger('send', [fieldNameObj]);
+        },
+        sendEvent: function(category, action, label, value) {
+          logger('sendEvent', [category, action, label, value]);
+        },
+        trackPageView: function(path, fieldNameObj) {
+          logger('trackPageView', ['pageview', path, fieldNameObj]);
+        },
+        applyAppFields: function() {
+          logger('applyAppFields');
+        }
+      });
+      return new Tracker();
+    };
+
+  </script>
+
   <script type="text/x-handlebars">
     <ul class="nav nav-tabs">
       {{#link-to 'index'     tagName='li' disabled='true'}}<a>Task</a>{{/link-to}}
