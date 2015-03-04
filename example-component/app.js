@@ -1,14 +1,19 @@
-var EmberInsights = require('ember-insights')['default'];
-
 Ember.Application.initializer({
   name: 'Ember-Insights.js',
   initialize: function (container, application) {
+    // EmberInsights configuration for getting user-centered insights
+    var EmberInsights = require('ember-insights')['default'];
     EmberInsights.configure('demo', {
+      // this is a kind tricky stuff which is able to drop insights directly to the right pane
       trackerFactory: customOutputTrackerFactory
+    // sets insights mappings for transitions between 'Task' and 'Execution' tabs
+    // includes sending all of actions
     }).track({
       insights: {
         TRANSITIONS: ['index', 'execution'], ALL_ACTIONS: true
       }
+    // defines insights mappings for transition to 'Result' tab. The `handler` is responsible for sending final result
+    // this is advanced insight builder as you can see
     }).track({
       insights: {
         TRANSITIONS: ['result']
@@ -16,7 +21,7 @@ Ember.Application.initializer({
       handler: function(type, context, tracker) {
         var model = context.route.get('controller.model');
         var label, value;
-
+        // this kind of final insight depends from model state
         if (model.get('isValid')) {
           label = 'success';
           value = { first_attempt: model.get('firstAttempt'), second_attempt: model.get('secondAttempt') };
@@ -25,15 +30,18 @@ Ember.Application.initializer({
           label = 'failed';
           value = { errors: model.errors() };
         }
-
-        tracker.sendEvent('result_page', 'entered', label, value);
+        // sends a task success report
+        tracker.sendEvent('result_page', 'complete', label, value);
       }
     });
-
+    // Start engine!
     EmberInsights.start('demo');
   }
 });
-
+// The Example App is abstract implementation as a show case of getting the 'Task Success' metric.
+// The Task Success: this includes traditional behavioral metrics of user experience,
+// such as efficiency (e.g. time to complete a task), effectiveness (e.g. percent of tasks completed), and error rate.
+// This category is most applicable to areas of your product that are very task-focused, such as search or an upload flow.
 App = Ember.Application.create({rootElement: '#example-component-container'});
 
 App.Router.map(function() {
