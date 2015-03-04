@@ -64,15 +64,19 @@
       <h3 class="section-title">Example: Task Success Application</h3>
       <div class="section-content">
         <h5>Application (<i>Your browser may not support the application functionality</i>)</h5>
+        <link rel="import" href="example-component/initializer.html">
         <link rel="import" href="example-component/app.html">
         <div id="example-component-host"></div>
         <script>
-          var link      = document.querySelector('link[href="example-component/app.html"]');
-          var template  = link.import.querySelector('template');
-          var clone     = document.importNode(template.content, true);
-
           var host      = document.querySelector('#example-component-host');
+          var link      = document.querySelector('link[href="example-component/initializer.html"]');
+          var template  = link.import.querySelector('template#application-layout');
+          var clone     = document.importNode(template.content, true);
           host.appendChild(clone);
+
+          template       = link.import.querySelector('template#shadow-layout');
+          clone          = document.importNode(template.content, true);
+          host.createShadowRoot().appendChild(clone);
         </script>
 
         <h5>Source: <code>app.js</code></h5>
