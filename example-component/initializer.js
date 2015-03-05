@@ -5,12 +5,16 @@ Ember.Application.initializer({
     var EmberInsights = require('ember-insights')['default'];
     EmberInsights.configure('demo', {
       // this is a kind tricky stuff which is able to drop insights directly to the right pane
-      trackerFactory: customOutputTrackerFactory
+      trackerFactory: customOutputTrackerFactory,
+      // disables setting 'location' each time after transitions
+      updateDocumentLocationOnTransitions: false,
+      // sets application fields
+      fields: { appName: 'example-component', appVersion: 'v0.1.1' }
     // sets insights mappings for transitions between 'Task' and 'Execution' tabs
     // includes sending all of actions
     }).track({
       insights: {
-        TRANSITIONS: ['index', 'execution'], ALL_ACTIONS: true
+        TRANSITIONS: ['index', 'execution'], ALL_ACTIONS: { except: ['tryAgain'] }
       }
     // defines insights mappings for transition to 'Result' tab. The `handler` is responsible for sending final result
     // this is advanced insight builder as you can see

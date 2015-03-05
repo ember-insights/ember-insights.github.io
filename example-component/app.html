@@ -4,7 +4,7 @@
 
   <script>
     var AbstractTracker = require('trackers/abstract-tracker')['default'];
-    var customOutputTrackerFactory = function() {
+    var customOutputTrackerFactory = function(settings) {
       var numFadingIn = 0;
       var logger = function(label, params) {
         var message = 'tracker.%@(%@)'.fmt(label, JSON.stringify(params));
@@ -33,7 +33,7 @@
           logger('trackPageView', ['pageview', path, fieldNameObj]);
         },
         applyAppFields: function() {
-          logger('applyAppFields');
+          logger('applyAppFields', [settings.fields]);
         }
       });
       return new Tracker();
@@ -62,7 +62,7 @@
           <li>Check both S and L options</li>
         </ol>
       </blockquote>
-      <button type="button" class="btn btn-default" {{action 'next'}}>
+      <button type="button" class="btn btn-default" {{action 'proceed'}}>
         <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Proceed
       </button>
     </div>
@@ -131,7 +131,7 @@
         <div class="form-group">
           {{input value=model.taskID class='form-control' placeholder='Task ID'}}
         </div>
-        <button type="submit" class='btn btn-default' {{action 'submit'}}>
+        <button type="submit" class='btn btn-default' {{action 'submit' 'form' model}}>
           <span {{bind-attr class=":glyphicon model.attempts:glyphicon-repeat:glyphicon-ok"}}></span>
           Submit
         </button>
@@ -162,7 +162,7 @@
           </li>
         </ol>
       </blockquote>
-      <button type="button" class="btn btn-default" {{action 'restart'}}>
+      <button type="button" class="btn btn-default" {{action 'tryAgain'}}>
         <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Try Again
       </button>
     </div>

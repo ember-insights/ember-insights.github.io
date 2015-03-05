@@ -10,6 +10,7 @@ App.Router.map(function() {
   this.resource('result',    { path: '/result' });
 });
 
+// disables update URL
 App.Router.reopen({ location: 'none' });
 
 App.Task = Ember.Object.extend({
@@ -57,7 +58,7 @@ App.ResultRoute = Ember.Route.extend({
 
 App.IndexController = Ember.Controller.extend({
   actions: {
-    next: function(){ this.transitionTo('execution'); }
+    proceed: function(){ this.transitionTo('execution'); }
   }
 });
 
@@ -78,7 +79,7 @@ App.ExecutionController = Ember.ObjectController.extend({
 
 App.ResultController = Ember.Controller.extend({
   actions: {
-    restart: function(){ this.transitionTo('index'); }
+    tryAgain: function(){ this.transitionTo('index'); }
   }
 });
 
