@@ -22,6 +22,19 @@ Ember.Application.initializer({
       insights: {
         TRANSITIONS: ['result']
       },
+      chains: [
+        {
+          title: 'Main timing chain',
+          start: 't:index',
+          end: 't:result',
+          points: ['a:submit']
+        }
+      ],
+      timingHandler: function(chainTitle, measureName, tracker) {
+        var measures = window.performance.getEntriesByName(measureName);
+        var measure = measures[measures.length-1];
+        tracker.send('measure for `' + chainTitle + '`:' + JSON.stringify(measure));
+      },
       handler: function(type, context, tracker) {
         var model = context.route.get('controller.model');
         var label, value;
