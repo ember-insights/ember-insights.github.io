@@ -4,7 +4,7 @@ Ember.Application.initializer({
     // EmberInsights configuration for getting user-centered insights
     var EmberInsights = require('ember-insights')['default'];
     EmberInsights.configure('demo', {
-      trackingNamespace: 'task-success-component',
+      trackingNamespace: 'TaskSuccessComponent',
       // this is a kind tricky stuff which is able to drop insights directly to the right pane
       trackerFactory: adhocTrackerFactory,
       // disables setting 'location' each time after transitions
