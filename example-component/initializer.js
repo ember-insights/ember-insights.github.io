@@ -4,13 +4,12 @@ Ember.Application.initializer({
     // EmberInsights configuration for getting user-centered insights
     var EmberInsights = require('ember-insights')['default'];
     EmberInsights.configure('demo', {
-      trackingNamespace: 'task-success-component',
       // this is a kind tricky stuff which is able to drop insights directly to the right pane
-      trackerFactory: adhocTrackerFactory,
+      trackerFactory: customOutputTrackerFactory,
       // disables setting 'location' each time after transitions
       updateDocumentLocationOnTransitions: false,
       // sets application fields
-      fields: { appName: 'task-success-component', appVersion: 'v0.1.1' }
+      fields: { appName: 'example-component', appVersion: 'v0.1.1' }
     // sets insights mappings for transitions between 'Task' and 'Execution' tabs
     // includes sending all of actions
     }).track({
