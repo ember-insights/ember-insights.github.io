@@ -5,8 +5,9 @@
   <script>
     var AbstractTracker = require('trackers/abstract-tracker')['default'];
     var GoogleTracker   = require('trackers/google')['default'];
+    var googleTracker;
     var adhocTrackerFactory = function(settings) {
-      var googleTracker = GoogleTracker.factory(settings);
+      googleTracker = GoogleTracker.factory(settings);
       var numFadingIn = 0;
       var logger = function(label, params) {
         var message = 'tracker.%@(%@)'.fmt(label, JSON.stringify(params));
