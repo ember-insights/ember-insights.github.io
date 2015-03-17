@@ -18,6 +18,7 @@ App.Task = Ember.Object.extend({
   validateRadio:    Ember.computed.equal('selectedRadio', 'should'),
   validateCheckbox: Ember.computed.and('checkedOptions.s', 'checkedOptions.l'),
   isValid:          Ember.computed.and('validateInput', 'validateRadio', 'validateCheckbox'),
+  firstAttempt:     Ember.computed.equal('attempts', 1)
 });
 
 App.ExecutionRoute = Ember.Route.extend({
