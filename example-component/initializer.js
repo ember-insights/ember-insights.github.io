@@ -27,6 +27,7 @@ Ember.Application.initializer({
         var label = (model.get('isValid') ? 'success' : 'failed')
         // sends report
         tracker.sendEvent('result', 'status', label);
+        tracker.trackPageView('/result');
       }
     });
     // Start engine!
