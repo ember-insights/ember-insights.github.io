@@ -9,8 +9,6 @@ Ember.Application.initializer({
       trackerFactory: adhocTrackerFactory,
       // disables setting 'location' each time after transitions
       updateDocumentLocationOnTransitions: false,
-      // sets application fields
-      fields: { appName: 'TaskSuccessComponent', appVersion: 'v0.1.2' }
     // sets insights mappings for transitions between 'Task' and 'Execution' tabs
     // includes sending all of actions
     }).track({
