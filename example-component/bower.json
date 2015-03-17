@@ -3,7 +3,7 @@
   "description": "ember-insights pages",
   "dependencies": {
     "ember": "1.8.1",
-    "ember-insights": "0.1.1",
+    "ember-insights": "0.1.2",
     "almond": "~0.3.0"
   }
 }
