@@ -10,7 +10,7 @@ Ember.Application.initializer({
       // disables setting 'location' each time after transitions
       updateDocumentLocationOnTransitions: false,
       // sets application fields
-      fields: { appName: 'TaskSuccessComponent', appVersion: 'v0.1.1' }
+      fields: { appName: 'TaskSuccessComponent', appVersion: 'v0.1.2' }
     // sets insights mappings for transitions between 'Task' and 'Execution' tabs
     // includes sending all of actions
     }).track({
@@ -25,18 +25,10 @@ Ember.Application.initializer({
       },
       handler: function(type, context, tracker) {
         var model = context.route.get('controller.model');
-        var label, value;
-        // this kind of final insight depends from model state
-        if (model.get('isValid')) {
-          label = 'success';
-          value = { first_attempt: model.get('firstAttempt'), second_attempt: model.get('secondAttempt') };
-        }
-        else {
-          label = 'failed';
-          value = { errors: model.errors() };
-        }
-        // sends a task success report
-        tracker.sendEvent('result_page', 'complete', label, value);
+        // this kind of final insight which depends from model state
+        var label = (model.get('isValid') ? 'success' : 'failed')
+        // sends report
+        tracker.sendEvent('result', 'status', label);
       }
     });
     // Start engine!

@@ -135,7 +135,7 @@
         <div class="form-group">
           {{input value=model.taskID class='form-control' placeholder='Task ID'}}
         </div>
-        <button type="submit" class='btn btn-default' {{action 'submit' 'form' model}}>
+        <button type="submit" class='btn btn-default' {{action 'submit' 'status' model.isValid}}>
           <span {{bind-attr class=":glyphicon model.attempts:glyphicon-repeat:glyphicon-ok"}}></span>
           Submit
         </button>
