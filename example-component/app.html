@@ -34,7 +34,7 @@
           logger('sendEvent', [category, action, label, value]);
         },
         trackPageView: function(path, fieldNameObj) {
-          logger('trackPageView', ['pageview', path, fieldNameObj]);
+          logger('trackPageView', [path, fieldNameObj]);
         },
         applyAppFields: function() {
           logger('applyAppFields', [settings.fields]);
