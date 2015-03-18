@@ -1,10 +1,9 @@
 {
   "name": "ember-insights",
-  "version": "v0.0.5",
   "description": "ember-insights pages",
   "dependencies": {
     "ember": "1.8.1",
-    "ember-insights": "0.1.1",
-    "almond": "~0.3.0"
+    "ember-insights": "0.1.2",
+    "loader.js": "3.2.1"
   }
 }
