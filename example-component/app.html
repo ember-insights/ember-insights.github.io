@@ -1,61 +1,71 @@
-<template>
-  <script>
-    var AbstractTracker = require('trackers/abstract-tracker')['default'];
-    var GoogleTracker   = require('trackers/google')['default'];
-    var googleTracker;
-    var adhocTrackerFactory = function(settings) {
-      googleTracker = GoogleTracker.factory(settings);
-      var numFadingIn = 0;
-      var logger = function(label, params) {
-        var message = 'tracker.%@(%@)'.fmt(label, JSON.stringify(params));
-        var $new = $('<div style="display:none;"> <code>' + message + '</code> <hr> </div>');
-        $('#example-component-output').prepend($new);
-        numFadingIn++;
-        setTimeout(function(){
-          $new.show('slow', function() { numFadingIn--; });
-        }, (numFadingIn-1) * 500);
-        googleTracker[label].apply(googleTracker, params);
-      };
+<template id="application-views">
+  <style>
+    @font-face {
+      font-family: "Material-Design-Icons";
+      src: url("example-component/bower_components/materialize/font/material-design-icons/Material-Design-Icons.eot");
+      src: url("example-component/bower_components/materialize/font/material-design-icons/Material-Design-Icons.eot?#iefix") format("embedded-opentype"), url("example-component/bower_components/materialize/font/material-design-icons/Material-Design-Icons.woff") format("woff"), url("example-component/bower_components/materialize/font/material-design-icons/Material-Design-Icons.ttf") format("truetype"), url("example-component/bower_components/materialize/font/material-design-icons/Material-Design-Icons.svg#Material-Design-Icons") format("svg");
+      font-weight: normal;
+      font-style: normal; }
 
-      var Tracker = AbstractTracker.extend({
-        getTracker: function() {
-          return logger;
-        },
-        set: function(key, value) {
-          logger('set', [key, value]);
-        },
-        send: function(fieldNameObj) {
-          logger('send', [fieldNameObj]);
-        },
-        sendEvent: function(category, action, label, value) {
-          logger('sendEvent', [category, action, label, value]);
-        },
-        trackPageView: function(path, fieldNameObj) {
-          logger('trackPageView', [path, fieldNameObj]);
-        },
-        applyAppFields: function() {
-          logger('applyAppFields', [settings.fields]);
-        }
-      });
-      return new Tracker();
-    };
+    @font-face {
+      font-family: "Roboto";
+      src: url("example-component/bower_components/materialize/font/roboto/Roboto-Thin.ttf");
+      font-weight: 200; }
 
-  </script>
+    @font-face {
+      font-family: "Roboto";
+      src: url("example-component/bower_components/materialize/font/roboto/Roboto-Light.ttf");
+      font-weight: 300; }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("example-component/bower_components/materialize/font/roboto/Roboto-Regular.ttf");
+      font-weight: 400; }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("example-component/bower_components/materialize/font/roboto/Roboto-Medium.ttf");
+      font-weight: 500; }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("example-component/bower_components/materialize/font/roboto/Roboto-Bold.ttf");
+      font-weight: 700; }
+
+    task-success-component {
+      line-height: 1.5;
+      font-family: "Roboto", sans-serif;
+      font-weight: normal;
+      color: rgba(0, 0, 0, 0.87); }
+      @media only screen and (min-width: 0) {
+        html {
+          font-size: 14px; } }
+      @media only screen and (min-width: 992px) {
+        html {
+          font-size: 14.5px; } }
+      @media only screen and (min-width: 1200px) {
+        html {
+          font-size: 15px; } }
+  </style>
 
   <script type="text/x-handlebars">
-    <ul class="nav nav-tabs">
-      {{#link-to 'index'     tagName='li' disabled='true'}}<a>Task</a>{{/link-to}}
-      {{#link-to 'execution' tagName='li' disabled='true'}}<a>Execution</a>{{/link-to}}
-      {{#link-to 'result'    tagName='li' disabled='true'}}<a>Result</a>{{/link-to}}
-    </ul>
-    <div class="tab-content">
-      {{outlet}}
-    </div>
+    <nav>
+       <div class="nav-wrapper">
+         <ul id="nav-mobile" class="left hide-on-med-and-down">
+           {{#link-to 'index'     tagName='li' disabled='true'}}<a>Task</a>{{/link-to}}
+           {{#link-to 'execution' tagName='li' disabled='true'}}<a>Execution</a>{{/link-to}}
+           {{#link-to 'result'    tagName='li' disabled='true'}}<a>Result</a>{{/link-to}}
+         </ul>
+       </div>
+   </nav>
+   <div class="tab-content">
+     {{outlet}}
+   </div>
   </script>
 
   <script type="text/x-handlebars" data-template-name="index">
-    <div role="tabpanel" class="tab-pane fade in active">
-      <p>Abstract: Submit an application form:</p>
+    <div class="card-panel">
+      <span>Submit an application form</span>
       <blockquote>
         <ol>
           <li>Type 'Mnemonics' as a Ticket ID</li>
@@ -63,91 +73,78 @@
           <li>Check both S and L options</li>
         </ol>
       </blockquote>
-      <button type="button" class="btn btn-default" {{action 'proceed'}}>
-        <span class="glyphicon glyphicon-time" aria-hidden="true"></span> Proceed
-      </button>
     </div>
+    <button type="button" class="btn waves-effect waves-light" {{action 'proceed'}}>
+      Proceed <i class="mdi-device-access-alarm right"></i>
+    </button>
   </script>
   <script type="text/x-handlebars" data-template-name="execution">
-    <div role="tabpanel" class="tab-pane fade in active">
+    <div class="card-panel">
       <form>
-        <div class="form-group">
-          <div class="radio">
-            <label>
-              {{ radio-button name='radio' value=radioButtons.must selectedRadio=model.selectedRadio}}
-              Option Must is this and that&mdash;be sure to include why it's great
-            </label>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="mdi-action-assignment-turned-in prefix"></i>
+            {{input value=model.taskID class='validate' placeholder='Task ID'}}
           </div>
-          <div class="radio">
-            <label>
-              {{ radio-button name='radio' value=radioButtons.should selectedRadio=model.selectedRadio}}
-              Option Should can be something else and selecting it will deselect option Must
-            </label>
+          <div class="col s12">
+            {{ radio-button id='most' class='with-gap' name='radio' value=radioButtons.must selectedRadio=model.selectedRadio}}
+            <label for="most">Option Must</label>
           </div>
-          <div class="radio disabled">
-            <label>
-              {{ radio-button name='radio' value=radioButtons.could selectedRadio=model.selectedRadio disabled='true'}}
-              Option Could is disabled
-            </label>
+          <div class="col s12">
+            {{ radio-button id='should' class='with-gap' name='radio' value=radioButtons.should selectedRadio=model.selectedRadio}}
+            <label for="should">Option Should (it will deselect option Must)</label>
           </div>
-          <div class="radio">
-            <label>
-              {{ radio-button name='radio' value=radioButtons.wont selectedRadio=model.selectedRadio}}
-              Option Won't can be something else and selecting it will deselect option Should
-            </label>
+          <div class="col s12">
+            {{ radio-button id='could' class='with-gap' name='radio' value=radioButtons.could selectedRadio=model.selectedRadio disabled='disabled'}}
+            <label for="could">Option Could is disabled</label>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="checkbox">
-            <label>
-              {{ input type="checkbox" checked=model.checkedOptions.s }}
-              Option S is this and that&mdash;be sure to include why it's great
-            </label>
+          <div class="col s12">
+            {{ radio-button id='wont' class='with-gap' name='radio' value=radioButtons.wont selectedRadio=model.selectedRadio}}
+            <label for="wont">Option Won't can be something else</label>
           </div>
-          <div class="checkbox">
-            <label>
-              {{ input type="checkbox" checked=model.checkedOptions.o }}
-              Option O is this and that&mdash;be sure to include why it's great
-            </label>
+          <div class="col s12">
+            {{ input id='s' type="checkbox" checked=model.checkedOptions.s }}
+            <label for="s">Option S</label>
           </div>
-          <div class="checkbox">
-            <label>
-              {{ input type="checkbox" checked=model.checkedOptions.l }}
-              Option L is this and that&mdash;be sure to include why it's great
-            </label>
+          <div class="col s12">
+            {{ input id='o' type="checkbox" checked=model.checkedOptions.o }}
+            <label for="o">Option O</label>
           </div>
-          <div class="checkbox disabled">
-            <label>
-              {{ input type="checkbox" disabled='' checked=model.checkedOptions.i }}
-              Option I is disabled
-            </label>
+          <div class="col s12">
+            {{ input id='l' type="checkbox" checked=model.checkedOptions.l }}
+            <label for="l">Option L</label>
           </div>
-          <div class="checkbox">
-            <label>
-              {{ input type="checkbox" checked=model.checkedOptions.d }}
-              Option D is this and that&mdash;be sure to include why it's great
-            </label>
+          <div class="col s12">
+            {{ input id='i' type="checkbox" disabled='disabled' checked=model.checkedOptions.i }}
+            <label for="i">Option I is disabled</label>
+          </div>
+          <div class="col s12">
+            {{ input id='d' type="checkbox" checked=model.checkedOptions.d }}
+            <label for="d">Option D</label>
           </div>
         </div>
-        <div class="form-group">
-          {{input value=model.taskID class='form-control' placeholder='Task ID'}}
-        </div>
-        <button type="submit" class='btn btn-default' {{action 'submit' 'status' model.isValid}}>
-          <span {{bind-attr class=":glyphicon model.attempts:glyphicon-repeat:glyphicon-ok"}}></span>
-          Submit
-        </button>
-        {{#if model.firstAttempt }}
-          <span class="text-danger">Left last attempt</span>
-        {{/if}}
       </form>
     </div>
+    <button type="submit" class='btn waves-effect waves-light' {{action 'submit' 'status' model.isValid}}>
+    Submit <i {{bind-attr class=":right model.attempts:mdi-av-repeat:mdi-content-send"}}></i>
+    </button>
+    {{#if model.firstAttempt }}
+    <span class="text-danger">Left last attempt</span>
+    {{/if}}
   </script>
   <script type="text/x-handlebars" data-template-name="result">
-    <div role="tabpanel" class="tab-pane fade in active">
+    <div class="card-panel">
+      <span>Result:
+        {{#if model.isValid}}
+          Successful
+        {{else}}
+          Failed
+        {{/if}}
+      </span>
       <blockquote>
         <ol>
           <li>
-            <span {{bind-attr class="model.validateInput:text-success:text-danger"}}>
+            <span {{bind-attr class="model.validateInput:green-text:red-text"}}>
               {{#if model.taskID}}
                 {{model.taskID}}
               {{else}}
@@ -156,26 +153,23 @@
             </span> as a Ticket ID
             {{#unless model.validateInput}}('Mnemonics' expected){{/unless}}
           </li>
-          <li>Choose a <span {{bind-attr class="model.validateRadio:text-success:text-danger"}}>Should</span> option</li>
+          <li>Choose a <span {{bind-attr class="model.validateRadio:green-text:red-text"}}>Should</span> option</li>
           <li>
-            Check both <span {{bind-attr class="model.checkedOptions.s:text-success:text-danger"}}>S</span>
-            and <span {{bind-attr class="model.checkedOptions.l:text-success:text-danger"}}>L</span> options
+            Check both <span {{bind-attr class="model.checkedOptions.s:green-text:red-text"}}>S</span>
+            and <span {{bind-attr class="model.checkedOptions.l:green-text:red-text"}}>L</span> options
           </li>
         </ol>
       </blockquote>
-      <button type="button" class="btn btn-default" {{action 'tryAgain'}}>
-        <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Try Again
+    </div>
+      <button type="button" class="btn waves-effect waves-light" {{action 'tryAgain'}}>
+        Try Again <i class="right mdi-action-autorenew"></i>
       </button>
     </div>
   </script>
+</template>
 
+<template id="application">
+  <script src="example-component/tracker.js"></script>
   <script src="example-component/initializer.js"></script>
   <script src="example-component/app.js"></script>
 </template>
-
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<script src="bower_components/handlebars/handlebars.min.js"></script>
-<script src="bower_components/ember/ember.min.js"></script>
-
-<script src="bower_components/loader.js/loader.js"></script>
-<script src="bower_components/ember-insights/ember-insights.amd.min.js"></script>

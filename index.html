@@ -16,7 +16,6 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', 'UA-60632001-1', 'auto');
-    ga('create', 'UA-60632001-4', 'auto', { 'name': 'TaskSuccessComponent' });
     ga('send', 'pageview');
   </script>
 
@@ -74,20 +73,9 @@
         <p>This is abstract show case of getting the 'Task Success' metric. The Task Success metric includes traditional behavioral metrics of user experience,
           such as efficiency (e.g. time to complete a task), effectiveness (e.g. percent of tasks completed), and error rate.
           This category is most applicable to areas of your product that are very task-focused, such as search or an upload flow.</p>
-        <link rel="import" href="example-component/initializer.html">
-        <link rel="import" href="example-component/app.html">
-        <div id="example-component-host"></div>
-        <script>
-          var host      = document.querySelector('#example-component-host');
-          var link      = document.querySelector('link[href="example-component/initializer.html"]');
-          var template  = link.import.querySelector('template#application-layout');
-          var clone     = document.importNode(template.content, true);
-          host.appendChild(clone);
 
-          template       = link.import.querySelector('template#shadow-layout');
-          clone          = document.importNode(template.content, true);
-          host.createShadowRoot().appendChild(clone);
-        </script>
+        <link rel="import" href="task-success-component.html">
+        <task-success-component></task-success-component>
 
         <h5>Configuration: <code>initializer.js</code></h5>
         <script src="https://gist.github.com/Zatvobor/e5b8266f8a5bedeb50d3.js?file=initializer.js"></script>
