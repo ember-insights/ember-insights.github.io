@@ -178,7 +178,7 @@ code {
 #actions {
   position: absolute;
   right: 0;
-  /*top: 62px; */
+  top: 62px; 
 }
 
 #actions-github {

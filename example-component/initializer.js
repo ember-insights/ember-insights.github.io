@@ -24,7 +24,7 @@ Ember.Application.initializer({
       handler: function(type, context, tracker) {
         var model = context.route.get('controller.model');
         // this kind of final insight which depends from model state
-        var label = (model.get('isValid') ? 'success' : 'failed')
+        var label = (model.get('isValid') ? 'successful' : 'failed')
         // sends report
         tracker.sendEvent('result', 'status', label);
         tracker.trackPageView('/result');
