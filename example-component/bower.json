@@ -4,6 +4,7 @@
   "dependencies": {
     "ember": "1.8.1",
     "ember-insights": "0.1.2",
-    "loader.js": "3.2.1"
+    "loader.js": "3.2.1",
+    "materialize": "0.95.3"
   }
 }
