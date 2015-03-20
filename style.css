@@ -178,7 +178,7 @@ code {
 #actions {
   position: absolute;
   right: 0;
-  /*top: 62px; */
+  top: 62px;
 }
 
 #actions-github {
@@ -195,10 +195,9 @@ code {
 
 #logo-bowtie {
   position: absolute;
-  top: 74px;
-  left: 323px; }
-  #logo-bowtie img {
-    width: 85px; }
+  top: 14px;
+  left: 675px; }
+  #logo-bowtie img {}
 
 #main-navigation {
   margin-bottom: 25px; }

@@ -2,7 +2,7 @@
 // The Task Success: this includes traditional behavioral metrics of user experience,
 // such as efficiency (e.g. time to complete a task), effectiveness (e.g. percent of tasks completed), and error rate.
 // This category is most applicable to areas of your product that are very task-focused, such as search or an upload flow.
-App = Ember.Application.create({rootElement: '#example-component-container'});
+App = Ember.Application.create({rootElement: applicationContainer});
 
 App.Router.map(function() {
   this.resource('index',     { path: '/' });
@@ -67,7 +67,7 @@ App.ResultController = Ember.Controller.extend({
 App.RadioButtonComponent = Ember.Component.extend({
   tagName:            'input',
   type:               'radio',
-  attributeBindings:  [ 'disabled', 'checked', 'name', 'type', 'value' ],
+  attributeBindings:  [ 'disabled', 'checked:checked', 'name', 'type', 'value' ],
 
   checked: function () {
     return this.get('value') === this.get('selectedRadio');
