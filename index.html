@@ -48,44 +48,34 @@
     </section>
 
     <section class="section-box" id="overview">
-      <h3 class="section-title">Introduction</h3>
+      <h3 class="section-title">Abstract</h3>
       <div class="section-content">
-        <p>Ember-Insights.js is an Ember.js based framework that lets you gather user-centered metrics and analyze it through analytic appliances.</p>
-        <p>The main idea behind is Single Responsibility Principle, and that responsibility for tracking user's metrics should be entirely encapsulated by
-        the different layer from application business logic. The way we do the Ember-Insights.js makes possible to keep business logic and developers entirely encapsulated
-        from tracking user-centered behavior and their analytics logic.
+        <p>There is a strong need for user-centered metrics for web applications, which can be used to measure progress towards key goals, and drive product decisions.</p>
+        <p>The Ember-Insights.js is an Ember.js based framework that lets you gather user-centered metrics and analyze them through web analytic platforms such as Google Ananlytics, as well as a process for mapping product goals to metrics.</p>
+        <p>The way we do the Ember-Insights.js make it possible to keep both developers and application business logic entirely segregated from tracking user-centered experience,
+        as it is a completely standalone layer on top of your application.</p>
+        <p>The main idea behind is to provide a DSL for mapping particular <code>transitions</code> and <code>actions</code> or just trap <code>{ALL_TRANSITIONS: true, ALL_ACTIONS: true}</code> and send them into web analytics platform with out touching actual application business logic.
+        With additional instrumentation, it is also posible to dispatch custom <code>events</code>, <code>variables</code>, <code>fields</code> and finally, measure <code>timings</code> from user-centered perspective.
         </p>
-        <p><strong>Key features:</strong>
-        <ul>
-          <li>Ability to track the whole application usage by adding a couple of configuration lines;</li>
-          <li>Ability to specify and track particular <code>actions</code> and <code>transitions</code>;</li>
-          <li>Ability to specify tracking groups and handle them as you wish (all you need to specify <code>handler</code> middleware function);</li>
-          <li>Ability to go with <code>GoogleTracker</code> or plug your own (all you need to extend <code>AbstractTracker</code> interface);</li>
-          <li>Ability to submit user's metrics into multiple analytic appliances on the same time;</li>
-          <li>Designed as an Ember-CLI addon (also available as AMD package);</li>
-        </ul>
-        </p>
-
-        <p>This project was created at <a href="https://github.com/roundscope" target="_blank">Roundscope Ukraine Labs</a> as a result of our domain experience.</p>
       </div>
     </section>
 
     <section class="section-box" id="example-component">
-      <h3 class="section-title">Example: Task Success Application</h3>
+      <h3 class="section-title">Use Case: Task Success Metrics</h3>
       <div class="section-content">
         <h5>Application (<i>Your browser may not support the application functionality</i>)</h5>
-        <p>This is abstract show case of getting the 'Task Success' metric. The Task Success metric includes traditional behavioral metrics of user experience,
+        <p>This is abstract show case of getting the "Task Success" metrics. The "Task Success" analytics includes traditional behavioral metrics of user experience,
           such as efficiency (e.g. time to complete a task), effectiveness (e.g. percent of tasks completed), and error rate.
-          This category is most applicable to areas of your product that are very task-focused, such as search or an upload flow.</p>
+          This category is most applicable to areas of your product that are very task-focused.</p>
 
         <link rel="import" href="task-success-component.html">
         <task-success-component></task-success-component>
 
-        <h5>Configuration: <code>initializer.js</code></h5>
+        <h5>Drop in configuration: <code>initializer.js</code></h5>
         <script src="https://gist.github.com/Zatvobor/e5b8266f8a5bedeb50d3.js?file=initializer.js"></script>
 
         <h5>Application Source</code></h5>
-        If you would like to check the application sources, here is a <a href="https://gist.github.com/Zatvobor/e5b8266f8a5bedeb50d3" target="_blank">Gist</a>.
+        If you would like to check the <code>app.js</code> source, here is a <a href="https://gist.github.com/Zatvobor/e5b8266f8a5bedeb50d3" target="_blank">Gist</a>.
       </div>
     </section>
 
