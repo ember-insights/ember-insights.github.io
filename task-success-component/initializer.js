@@ -1,27 +1,26 @@
+var EmberInsights = require('ember-insights')['default'];
+
 Ember.Application.initializer({
-  name: 'Ember-Insights.js',
+  name: 'Ember-Insights.js - tracking Task-Success application',
+
   initialize: function (container, application) {
-    // EmberInsights configuration for getting user-centered insights
-    var EmberInsights = require('ember-insights')['default'];
-    EmberInsights.configure('demo', {
-      trackingNamespace: 'TaskSuccessComponent',
-      // this is a kind tricky stuff which is able to drop insights directly to the right pane
-      trackerFactory: adhocTrackerFactory,
-      // disables setting 'location' each time after transitions
+    EmberInsights.configure('task-success-tracking', {
+      // Sends insights to the right panel.
+      trackerFactory: BrowserTrackerFactory,
+      // Disables setting a 'location' each time after transitions.
       updateDocumentLocationOnTransitions: false,
-    // sets insights mappings for transitions between 'Task' and 'Execution' tabs
-    // includes sending all of actions
     }).track({
+      // Sets insights for transitions between 'Task' and 'Execution' tabs.
       insights: {
         TRANSITIONS: ['index', 'execution'], ALL_ACTIONS: { except: ['tryAgain'] }
       }
-    // defines insights mappings for transition to 'Result' tab. The `handler` is responsible for sending final result
-    // this is advanced insight builder as you can see
     }).track({
+      // Sets insights mappings for transition to 'Result' tab.
       insights: {
         TRANSITIONS: ['result']
       },
-      handler: function(type, context, tracker) {
+      // A `dispatch` is responsible for sending custom insight as a final result of task success
+      dispatch: function(type, context, tracker) {
         var model = context.route.get('controller.model');
         // this kind of final insight which depends from model state
         var label = (model.get('isValid') ? 'successful' : 'failed')
@@ -31,6 +30,6 @@ Ember.Application.initializer({
       }
     });
     // Start engine!
-    EmberInsights.start('demo');
+    EmberInsights.start('task-success-tracking');
   }
 });

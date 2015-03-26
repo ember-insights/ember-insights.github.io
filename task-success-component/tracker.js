@@ -1,8 +1,10 @@
 var AbstractTracker = require('trackers/abstract-tracker')['default'];
 var GoogleTracker   = require('trackers/google')['default'];
-var adhocTrackerFactory = function(settings) {
-  var googleTracker = GoogleTracker.factory(settings);
+
+var BrowserTrackerFactory = function(settings) {
+  var googleTracker = GoogleTracker.with({ name:'TaskSuccessComponent' })();
   var numFadingIn = 0;
+
   var logger = function(label, params) {
     var message = 'tracker.%@(%@)'.fmt(label, JSON.stringify(params));
     var $new = $('<li style="display:none;" class="collection-item"> <blockquote><small>' + message + '</small></blockquote></li>');
